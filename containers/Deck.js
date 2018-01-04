@@ -86,8 +86,6 @@ class Deck extends React.Component {
   render(){
     const { deck } = this.state;
     
-    console.info(deck);
-    
     const count = deck.questions && deck.questions.length || 0;
     
     return (
@@ -106,15 +104,17 @@ class Deck extends React.Component {
           >
             Add Card
           </Textbutton>
-          <Textbutton
-            style={styles.startQuiz}
-            onPress={() => this.props.navigation.navigate(
-              'Quiz',
-              { deck: this.props.deck }
-            )}
-          >
-            Start Quiz
-          </Textbutton>
+          {count ?
+            <Textbutton
+              style={styles.startQuiz}
+              onPress={() => this.props.navigation.navigate(
+                'Quiz',
+                { deck: this.props.deck }
+              )}
+            >
+              Start Quiz
+            </Textbutton>
+          : null}
         </View>
       </View>
     )
