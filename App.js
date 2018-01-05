@@ -34,6 +34,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
 
 // NOTE: just a placeholder
@@ -42,15 +47,21 @@ const reducer = (state = {}, action) => {
 }
 
 export default class App extends React.Component {
-  componentWillMount(){
-    startupDecks();
+  state = {
+    ready: false
   }
   
   componentDidMount(){
     setLocalNotification();
+    startupDecks()
+      .then(() => this.setState({ ready: true }));
   }
   
   render() {
+    if (!this.state.ready) {
+      return (<View style={styles.loading}><Text>Loading..</Text></View>);
+    }
+    
     return (
       <Provider store={createStore(reducer)}>
         <MainNavigator

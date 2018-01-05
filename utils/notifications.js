@@ -11,7 +11,7 @@ export function clearLocalNotification () {
 function createNotification () {
   return {
     title: 'Quiz time!',
-    body: "Don't forget to do a quiz today!",
+    body: "Don&apos;t forget to do a quiz today!",
     ios: {
       sound: true,
     },
@@ -40,7 +40,7 @@ export function setLocalNotification () {
               tomorrow.setHours(20)
               tomorrow.setMinutes(0)
 
-              Notifications.scheduleLocalNotificationsAsync(
+              Notifications.scheduleLocalNotificationAsync(
                 createNotification(),
                 {
                   time: tomorrow,

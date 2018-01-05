@@ -29,12 +29,13 @@ const initialDecks = {
 }
 
 export function startupDecks() {
-  AsyncStorage.getItem(DECKS_STORAGE_KEY)
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then(JSON.parse)
     .then((data) => {
       if (data === null) {
-        AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialDecks));
+        return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialDecks));
       }
+      return data;
     })
 }
 

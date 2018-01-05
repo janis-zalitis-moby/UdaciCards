@@ -21,13 +21,18 @@ const styles = StyleSheet.create({
   },
   count: {
     color: '#333',
+  },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 
 class Decks extends React.Component {
   
   state = {
-    decks: {}
+    decks: null
   }
   
   componentDidMount(){
@@ -42,6 +47,10 @@ class Decks extends React.Component {
   
   render(){
     const { decks } = this.state;
+    
+    if (decks === null) {
+      return (<View style={styles.loading}><Text>Loading..</Text></View>);
+    }
     
     return (
       <ScrollView>
