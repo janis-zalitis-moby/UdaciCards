@@ -61,19 +61,21 @@ class Decks extends React.Component {
           const deck = decks[key];
           const count = (deck.questions && deck.questions.length) || 0;
           return (
-            <View key={key} style={styles.deck}>
+            <TouchableOpacity
+              key={key}
+              style={styles.deck}
+              onPress={() => this.props.navigation.navigate(
+                'Deck',
+                { deck: key }
+              )}
+            >
               <View style={styles.text}>
-                <TouchableOpacity
-                  onPress={() => this.props.navigation.navigate(
-                    'Deck',
-                    { deck: key }
-                  )}
-                >
+                <View>
                   <Text style={styles.title}>{deck.title}</Text>
-                </TouchableOpacity>
+                </View>
                 <Text style={styles.count}>{count} card{count !== 1 ? 's' : ''}</Text>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         })}
       </ScrollView>
