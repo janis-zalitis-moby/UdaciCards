@@ -173,6 +173,17 @@ class Quiz extends React.Component {
           </Text>
           <TextButton
             style={styles.home}
+            onPress={() => this.setState({
+              currentQuestion: 0,
+              done: false,
+              score: 0,
+              mode: 0,
+            })}
+          >
+            Restart Quiz
+          </TextButton>
+          <TextButton
+            style={styles.home}
             onPress={() => this.props.navigation.navigate(
               'Deck',
               { deck: this.props.deck }
