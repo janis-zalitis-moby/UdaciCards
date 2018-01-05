@@ -173,9 +173,12 @@ class Quiz extends React.Component {
           </Text>
           <TextButton
             style={styles.home}
-            onPress={() => this.props.navigation.navigate('Home')}
+            onPress={() => this.props.navigation.navigate(
+              'Deck',
+              { deck: this.props.deck }
+            )}
           >
-            Back to start
+            Back to Deck
           </TextButton>
         </View>
       );
