@@ -10,8 +10,8 @@ Project was linted using AirBnB ESLint config with some local modifications.
 
 To start app:
 
-* install all project dependencies with `npm install`
-* start the development server with `npm start`
+* install all project dependencies with `yarn install`
+* start the development server with `yarn start`
 * use iOS simulator or iPhone with Expo app to test
 
 Scenarios:
