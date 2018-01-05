@@ -10,6 +10,7 @@ import Deck from './containers/Deck';
 import AddCard from './containers/AddCard';
 import Quiz from './containers/Quiz';
 import { startupDecks } from './utils/api';
+import { setLocalNotification } from './utils/notifications';
 
 const MainNavigator = StackNavigator({
   Home: {
@@ -41,8 +42,12 @@ const reducer = (state = {}, action) => {
 }
 
 export default class App extends React.Component {
-  componentDidMount(){
+  componentWillMount(){
     startupDecks();
+  }
+  
+  componentDidMount(){
+    setLocalNotification();
   }
   
   render() {

@@ -15,6 +15,14 @@ const Tabs = TabNavigator({
       tabBarLabel: 'New Deck',
     }
   },
+},
+{
+  activeTintColor: '#666',
+  tabBarOptions: {
+    labelStyle: {
+      fontSize: 16
+    },
+  }
 });
 
 export default Tabs;

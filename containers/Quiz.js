@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import TextButton from '../components/TextButton';
 
 import { getDeck } from '../utils/api';
+import { setLocalNotification, clearLocalNotification } from '../utils/notifications';
 
 const styles = StyleSheet.create({
   quiz: {
@@ -124,6 +125,10 @@ class Quiz extends React.Component {
         score: score + answer,
         done: true
       });
+      
+      // if they've done a quiz, also reset today's notification
+      clearLocalNotification()
+        .then(setLocalNotification)
     } else {
       this.setState({
         currentQuestion: currentQuestion + 1,
