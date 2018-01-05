@@ -4,7 +4,7 @@ import {
   KeyboardAvoidingView,
   Text,
   StyleSheet,
-  TextInput
+  TextInput,
 } from 'react-native';
 
 import TextButton from '../components/TextButton';
@@ -12,7 +12,7 @@ import TextButton from '../components/TextButton';
 import { saveDeckTitle } from '../utils/api';
 
 const styles = StyleSheet.create({
-  deck: { 
+  deck: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -46,38 +46,36 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     overflow: 'hidden',
     marginTop: 10,
-  }
+  },
 });
 
 class AddDeck extends React.Component {
-  
   state = {
     title: '',
   }
-  
+
   submitDeck = () => {
-    const { title }  = this.state;
-    
+    const { title } = this.state;
+
     // NOTE: first may need some cleaning up as some values may be invalid object property names
     saveDeckTitle(title, title)
-      .then(() => 
+      .then(() =>
         this.props.navigation.navigate(
           'Deck',
           { deck: title }
-        )
-      );  
+        ));
   }
-  
-  render(){
+
+  render() {
     return (
-      <View style={styles.deck}>        
+      <View style={styles.deck}>
         <Text style={styles.title}>What is the title of your new deck?</Text>
         <KeyboardAvoidingView>
           <TextInput
             style={styles.input}
-            onChangeText={(title) => this.setState({ title })}
+            onChangeText={title => this.setState({ title })}
             value={this.state.title}
-            placeholder={'Deck Title'}
+            placeholder="Deck Title"
           />
           <TextButton
             style={styles.submit}
@@ -89,6 +87,6 @@ class AddDeck extends React.Component {
       </View>
     );
   }
-};
+}
 
 export default AddDeck;

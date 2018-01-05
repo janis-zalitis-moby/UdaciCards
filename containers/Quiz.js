@@ -3,8 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -32,7 +31,7 @@ const styles = StyleSheet.create({
   },
   answerLink: {
     fontWeight: 'bold',
-    color: '#fe0000'
+    color: '#fe0000',
   },
   buttons: {
     flex: 1,
@@ -75,6 +74,14 @@ const styles = StyleSheet.create({
 const antonyms = ['question', 'answer'];
 
 class Quiz extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    const { deck } = navigation.state.params;
+
+    return {
+      title: `Quiz: ${deck}`,
+    };
+  }
+
   state = {
     deck: null,
     currentQuestion: null,
@@ -82,20 +89,12 @@ class Quiz extends React.Component {
     mode: 0, // 0 - question, 1 = answer
     done: false,
   }
-  
-  static navigationOptions = ({ navigation }) => {
-    const { deck } = navigation.state.params
 
-    return {
-      title: `Quiz: ${deck}`
-    }
-  }
-  
-  componentDidMount(){
+  componentDidMount() {
     const { deck } = this.props;
 
     getDeck(deck)
-      .then((deck) => this.setState({
+      .then(deck => this.setState({
         deck,
         currentQuestion: 0,
         done: false,
@@ -103,12 +102,12 @@ class Quiz extends React.Component {
         mode: 0,
       }));
   }
-  
-  componentWillReceiveProps(nextProps) { 
+
+  componentWillReceiveProps() {
     const { deck } = this.props;
-       
+
     getDeck(deck)
-      .then((deck) => this.setState({ 
+      .then(deck => this.setState({
         deck,
         currentQuestion: 0,
         done: false,
@@ -116,40 +115,46 @@ class Quiz extends React.Component {
         mode: 0,
       }));
   }
-  
+
   answerCard = answer => {
     const { deck, currentQuestion, score } = this.state;
 
-    if(currentQuestion + 1 >= deck.questions.length) {
+    if (currentQuestion + 1 >= deck.questions.length) {
       this.setState({
         score: score + answer,
-        done: true
+        done: true,
       });
-      
+
       // if they've done a quiz, also reset today's notification
       clearLocalNotification()
-        .then(setLocalNotification)
+        .then(setLocalNotification);
     } else {
       this.setState({
         currentQuestion: currentQuestion + 1,
-        score: score + answer
+        score: score + answer,
       });
     }
   }
-  
-  render() {
-    const { deck, currentQuestion, mode, done, score } = this.state;
-    
-    const count = deck && deck.questions && deck.questions.length || 0;
 
-    if (!deck){
+  render() {
+    const {
+      deck,
+      currentQuestion,
+      mode,
+      done,
+      score,
+    } = this.state;
+
+    const count = (deck && deck.questions && deck.questions.length) || 0;
+
+    if (!deck) {
       return (
         <View style={styles.question}>
           <Text>Loading..</Text>
         </View>
       );
     }
-    
+
     if (done) {
       return (
         <View style={styles.question}>
@@ -166,7 +171,7 @@ class Quiz extends React.Component {
         </View>
       );
     }
-    
+
     return (
       <View style={styles.quiz}>
         <View style={styles.count}>
@@ -199,11 +204,11 @@ class Quiz extends React.Component {
           </TextButton>
         </View>
       </View>
-    )
+    );
   }
 }
 
-function mapStateToProps (state, { navigation }) {
+function mapStateToProps(state, { navigation }) {
   const { deck } = navigation.state.params;
 
   return { deck };

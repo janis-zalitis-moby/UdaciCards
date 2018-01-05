@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux'
-import { withNavigationFocus } from '@patwoz/react-navigation-is-focused-hoc'
+import { connect } from 'react-redux';
+import { withNavigationFocus } from '@patwoz/react-navigation-is-focused-hoc';
 
 import Textbutton from '../components/TextButton';
 
@@ -53,41 +53,41 @@ const styles = StyleSheet.create({
     paddingRight: 40,
     overflow: 'hidden',
     marginTop: 10,
-  }
-})
+  },
+});
 
 class Deck extends React.Component {
-  state = {
-    deck: {}
-  }
-  
   static navigationOptions = ({ navigation }) => {
-    const { deck } = navigation.state.params
+    const { deck } = navigation.state.params;
 
     return {
-      title: `${deck}`
-    }
+      title: `${deck}`,
+    };
   }
-  
-  componentDidMount(){
+
+  state = {
+    deck: {},
+  }
+
+  componentDidMount() {
     const { deck } = this.props;
 
     getDeck(deck)
-      .then((deck) => this.setState({ deck }));
-  }
-  
-  componentWillReceiveProps(nextProps) { 
-    const { deck } = this.props;
-       
-    getDeck(deck)
-      .then((deck) => this.setState({ deck }));
+      .then(deck => this.setState({ deck }));
   }
 
-  render(){
+  componentWillReceiveProps() {
+    const { deck } = this.props;
+
+    getDeck(deck)
+      .then(deck => this.setState({ deck }));
+  }
+
+  render() {
     const { deck } = this.state;
-    
-    const count = deck.questions && deck.questions.length || 0;
-    
+
+    const count = (deck.questions && deck.questions.length) || 0;
+
     return (
       <View style={styles.deck}>
         <View style={styles.text}>
@@ -117,11 +117,11 @@ class Deck extends React.Component {
           : null}
         </View>
       </View>
-    )
+    );
   }
 }
 
-function mapStateToProps (state, { navigation }) {
+function mapStateToProps(state, { navigation }) {
   const { deck } = navigation.state.params;
 
   return { deck };

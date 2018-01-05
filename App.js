@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { TabNavigator, StackNavigator } from 'react-navigation';
-import { updateFocus, getCurrentRouteKey } from '@patwoz/react-navigation-is-focused-hoc'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
+import { StackNavigator } from 'react-navigation';
+import { updateFocus } from '@patwoz/react-navigation-is-focused-hoc';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 import Tabs from './components/Tabs';
 import Deck from './containers/Deck';
@@ -17,14 +17,14 @@ const MainNavigator = StackNavigator({
     screen: Tabs,
   },
   Deck: {
-    screen: Deck
+    screen: Deck,
   },
   AddCard: {
-    screen: AddCard
+    screen: AddCard,
   },
   Quiz: {
-    screen: Quiz
-  }
+    screen: Quiz,
+  },
 });
 
 const styles = StyleSheet.create({
@@ -38,35 +38,33 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 });
 
 // NOTE: just a placeholder
-const reducer = (state = {}, action) => {
-  return state;
-}
+const reducer = (state = {}) => state;
 
 export default class App extends React.Component {
   state = {
-    ready: false
+    ready: false,
   }
-  
-  componentDidMount(){
+
+  componentDidMount() {
     setLocalNotification();
     startupDecks()
       .then(() => this.setState({ ready: true }));
   }
-  
+
   render() {
     if (!this.state.ready) {
       return (<View style={styles.loading}><Text>Loading..</Text></View>);
     }
-    
+
     return (
       <Provider store={createStore(reducer)}>
         <MainNavigator
           onNavigationStateChange={(prevState, currentState) => {
-            updateFocus(currentState)
+            updateFocus(currentState);
           }}
         />
       </Provider>
