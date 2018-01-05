@@ -45,6 +45,10 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Add card screen
+ * @type {React.Component}
+ */
 class AddCard extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { deck } = navigation.state.params;
@@ -59,6 +63,9 @@ class AddCard extends React.Component {
     answer: '',
   }
 
+  /**
+   * saves card, then navigates to deck card was added to
+   */
   submitCard = () => {
     const { question, answer } = this.state;
     const { deck } = this.props;
@@ -100,6 +107,9 @@ class AddCard extends React.Component {
   }
 }
 
+/**
+ * Connects local state to props to detect navigation changes
+ */
 function mapStateToProps(state, { navigation }) {
   const { deck } = navigation.state.params;
 

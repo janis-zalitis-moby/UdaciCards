@@ -56,6 +56,10 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Deck screen
+ * @type {React.Component}
+ */
 class Deck extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { deck } = navigation.state.params;
@@ -121,6 +125,9 @@ class Deck extends React.Component {
   }
 }
 
+/**
+ * Connects local state to props to detect navigation changes
+ */
 function mapStateToProps(state, { navigation }) {
   const { deck } = navigation.state.params;
 

@@ -71,8 +71,13 @@ const styles = StyleSheet.create({
   },
 });
 
+// used to switch between question and answer views
 const antonyms = ['question', 'answer'];
 
+/**
+ * Quiz screen
+ * @type {React.Component}
+ */
 class Quiz extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { deck } = navigation.state.params;
@@ -116,6 +121,10 @@ class Quiz extends React.Component {
       }));
   }
 
+  /**
+   * Saves answer to card, detects end of quiz, redirects
+   * @param  {int} answer correct/incorrect (1/0)
+   */
   answerCard = answer => {
     const { deck, currentQuestion, score } = this.state;
 
@@ -208,6 +217,9 @@ class Quiz extends React.Component {
   }
 }
 
+/**
+ * Connects local state to props to detect navigation changes
+ */
 function mapStateToProps(state, { navigation }) {
   const { deck } = navigation.state.params;
 

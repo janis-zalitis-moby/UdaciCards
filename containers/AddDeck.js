@@ -49,15 +49,21 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Add deck screen
+ * @type {React.Component}
+ */
 class AddDeck extends React.Component {
   state = {
     title: '',
   }
 
+  /**
+   * saves deck then navigates to it
+   */
   submitDeck = () => {
     const { title } = this.state;
 
-    // NOTE: first may need some cleaning up as some values may be invalid object property names
     saveDeckTitle(title, title)
       .then(() =>
         this.props.navigation.navigate(

@@ -3,6 +3,10 @@ import { TabNavigator } from 'react-navigation';
 import Decks from '../containers/Decks';
 import AddDeck from '../containers/AddDeck';
 
+/**
+ * tab navigator for app
+ * @type {object} TabNavigator
+ */
 const Tabs = TabNavigator(
   {
     Decks: {

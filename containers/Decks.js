@@ -29,6 +29,10 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Decks screen, shows listing of decks
+ * @type {React.Component}
+ */
 class Decks extends React.Component {
   state = {
     decks: null,

@@ -12,6 +12,9 @@ import Quiz from './containers/Quiz';
 import { startupDecks } from './utils/api';
 import { setLocalNotification } from './utils/notifications';
 
+/**
+ * Main stack navigator
+ */
 const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs,
@@ -41,7 +44,7 @@ const styles = StyleSheet.create({
   },
 });
 
-// NOTE: just a placeholder
+// NOTE: just a placeholder, no local Redux actions in this project, dependency needs it
 const reducer = (state = {}) => state;
 
 export default class App extends React.Component {
@@ -50,12 +53,16 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    // set up notifications
     setLocalNotification();
+
+    // initialize decks data (fills with initial data from project spec)
     startupDecks()
       .then(() => this.setState({ ready: true }));
   }
 
   render() {
+    // prevents components from rendering before initial storage ready
     if (!this.state.ready) {
       return (<View style={styles.loading}><Text>Loading..</Text></View>);
     }
