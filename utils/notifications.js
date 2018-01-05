@@ -1,17 +1,17 @@
 import { AsyncStorage } from 'react-native';
 import { Notifications, Permissions } from 'expo';
 
-const NOTIFICATION_KEY = 'UdaciCards:notifications'
+const NOTIFICATION_KEY = 'UdaciCards:notifications';
 
-export function clearLocalNotification () {
+export function clearLocalNotification() {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
-    .then(Notifications.cancelAllScheduledNotificationsAsync)
+    .then(Notifications.cancelAllScheduledNotificationsAsync);
 }
 
-function createNotification () {
+function createNotification() {
   return {
     title: 'Quiz time!',
-    body: "Don&apos;t forget to do a quiz today!",
+    body: 'Don&apos;t forget to do a quiz today!',
     ios: {
       sound: true,
     },
@@ -20,25 +20,24 @@ function createNotification () {
       priority: 'high',
       sticky: false,
       vibrate: true,
-    }
-  }
+    },
+  };
 }
 
-export function setLocalNotification () {
+export function setLocalNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
-    .then((data) => {
+    .then(data => {
       if (data === null) {
         Permissions.askAsync(Permissions.NOTIFICATIONS)
           .then(({ status }) => {
-            console.info('Permissions response: ', status);
             if (status === 'granted') {
-              Notifications.cancelAllScheduledNotificationsAsync()
+              Notifications.cancelAllScheduledNotificationsAsync();
 
-              let tomorrow = new Date()
-              tomorrow.setDate(tomorrow.getDate() + 1)
-              tomorrow.setHours(20)
-              tomorrow.setMinutes(0)
+              const tomorrow = new Date();
+              tomorrow.setDate(tomorrow.getDate() + 1);
+              tomorrow.setHours(20);
+              tomorrow.setMinutes(0);
 
               Notifications.scheduleLocalNotificationAsync(
                 createNotification(),
@@ -46,11 +45,11 @@ export function setLocalNotification () {
                   time: tomorrow,
                   repeat: 'day',
                 }
-              )
+              );
 
-              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
             }
-          })
+          });
       }
-    })
+    });
 }

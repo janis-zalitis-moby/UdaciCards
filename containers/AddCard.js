@@ -3,16 +3,16 @@ import {
   View,
   KeyboardAvoidingView,
   StyleSheet,
-  TextInput
+  TextInput,
 } from 'react-native';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 import TextButton from '../components/TextButton';
 
 import { addCardToDeck } from '../utils/api';
 
 const styles = StyleSheet.create({
-  deck: { 
+  deck: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -42,59 +42,51 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     overflow: 'hidden',
     marginTop: 10,
-  }
+  },
 });
 
 class AddCard extends React.Component {
-  
+  static navigationOptions = ({ navigation }) => {
+    const { deck } = navigation.state.params;
+
+    return {
+      title: `New card for ${deck}`,
+    };
+  }
+
   state = {
     question: '',
     answer: '',
   }
-  
-  static navigationOptions = ({ navigation }) => {
-    const { deck } = navigation.state.params
 
-    return {
-      title: `New card for ${deck}`
-    }
-  }
-  
-  componentDidMount() {
-    console.info('addCard', this.props)
-  }
-  
   submitCard = () => {
-    const { question, answer }  = this.state;
-    const { deck }  = this.props;
+    const { question, answer } = this.state;
+    const { deck } = this.props;
 
     addCardToDeck(deck, { question, answer })
-      .then(() => 
+      .then(() =>
         this.props.navigation.navigate(
           'Deck',
           { deck }
-        )
-      );
+        ));
   }
-  
-  render(){
+
+  render() {
     const { question, answer } = this.state;
     return (
-      <View style={styles.deck}>        
+      <View style={styles.deck}>
         <KeyboardAvoidingView>
           <TextInput
             style={styles.input}
-            onChangeText={(question) => this.setState({ question })}
+            onChangeText={question => this.setState({ question })}
             value={question}
-            placeholder={'Card Question'}
-            tabIndex={1}
+            placeholder="Card Question"
           />
           <TextInput
             style={styles.input}
-            onChangeText={(answer) => this.setState({ answer })}
+            onChangeText={answer => this.setState({ answer })}
             value={answer}
-            placeholder={'Card Answer'}
-            tabIndex={2}
+            placeholder="Card Answer"
           />
           <TextButton
             style={styles.submit}
@@ -106,9 +98,9 @@ class AddCard extends React.Component {
       </View>
     );
   }
-};
+}
 
-function mapStateToProps (state, { navigation }) {
+function mapStateToProps(state, { navigation }) {
   const { deck } = navigation.state.params;
 
   return { deck };

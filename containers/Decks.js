@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { withNavigationFocus } from '@patwoz/react-navigation-is-focused-hoc'
+import { withNavigationFocus } from '@patwoz/react-navigation-is-focused-hoc';
 
 import { getDecks } from '../utils/api';
 
 const styles = StyleSheet.create({
-  deck: { 
+  deck: {
     alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center',
@@ -26,37 +26,36 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 });
 
 class Decks extends React.Component {
-  
   state = {
-    decks: null
+    decks: null,
   }
-  
-  componentDidMount(){
+
+  componentDidMount() {
     getDecks()
-      .then((decks) => this.setState({ decks }));
+      .then(decks => this.setState({ decks }));
   }
-  
-  componentWillReceiveProps(nextProps) {    
+
+  componentWillReceiveProps() {
     getDecks()
-      .then((decks) => this.setState({ decks }));
+      .then(decks => this.setState({ decks }));
   }
-  
-  render(){
+
+  render() {
     const { decks } = this.state;
-    
+
     if (decks === null) {
       return (<View style={styles.loading}><Text>Loading..</Text></View>);
     }
-    
+
     return (
       <ScrollView>
-        {Object.keys(decks).map((key) => {
+        {Object.keys(decks).map(key => {
           const deck = decks[key];
-          const count = deck.questions && deck.questions.length || 0;
+          const count = (deck.questions && deck.questions.length) || 0;
           return (
             <View key={key} style={styles.deck}>
               <View style={styles.text}>
@@ -76,6 +75,6 @@ class Decks extends React.Component {
       </ScrollView>
     );
   }
-};
+}
 
 export default withNavigationFocus(Decks);
